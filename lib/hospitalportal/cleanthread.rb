@@ -79,6 +79,16 @@ module HospitalPortal
       return nil
     end
 
+    # Return true if the thread is alive.
+    def alive?
+      return @thread.alive?
+    end
+
+    # Wait for the thread to stop.
+    def join
+      return @thread.join
+    end
+
     # Return true if the finish method has been called.
     def finishing?
       @cleanthread_mutex.synchronize { return @cleanthread_stopping }
