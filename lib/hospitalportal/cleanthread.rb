@@ -84,7 +84,7 @@ module HospitalPortal
             begin
               @cleanthread_proc.call(self, *@cleanthread_args)
             rescue ThreadFinish
-              return nil
+              # Do nothing - exit cleanly
             end
           end
         else
