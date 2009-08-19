@@ -8,20 +8,49 @@ module HospitalPortal
   # a block to CleanThread.new.
   #
   # The code invoked by CleanThread should check periodically whether the
-  # thread needs to exit, either by invoking the check_finish method (which
+  # thread needs to exit, either by invoking the check_finishing method (which
   # raises ThreadFinish if the finish method has been called), or by manually
   # checking the result of the finishing? method and exiting if it returns true.
   #
-  # = Example:
+  # = Examples
+  #
+  # == Overriding CleanThread#main
+  #
+  #   class MyThread < CleanThread
+  #     def main
+  #       loop do
+  #         t.check_finishing
+  #         # ... do some steps
+  #         t.check_finishing
+  #         # ... do some more steps
+  #         t.check_finishing
+  #         # ... do yet more steps
+  #       end
+  #     end
+  #   end
+  #
+  #   t = MyThread.new
+  #   t.start
+  #   # ...
+  #   t.finish
+  #
+  # == Passing a block to new
+  #
   #   t = CleanThread.new do |t|
   #     loop do
+  #       t.check_finishing
   #       # ... do some steps
-  #       t.check_finish
+  #       t.check_finishing
   #       # ... do some more steps
-  #       t.check_finish
+  #       t.check_finishing
   #       # ... do yet more steps
   #     end
   #   end
+  #
+  #   t.start   # Start the thread
+  #   # ...
+  #   t.finish  # Stop the thread
+
   class CleanThread
 
     class ThreadFinish < Exception
@@ -98,7 +127,7 @@ module HospitalPortal
     #
     # Functionally equivalent to:
     #  raise ThreadFinish if finishing?
-    def check_finish
+    def check_finishing
       raise ThreadFinish if finishing?
       return nil
     end
