@@ -23,5 +23,6 @@ end
 
 require 'rake/rdoctask'
 Rake::RDocTask.new do |rd|
+  rd.main = "HospitalPortal::CleanThread"
   rd.rdoc_files.include("lib/**/*.rb")
 end
