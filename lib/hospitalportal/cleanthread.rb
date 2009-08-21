@@ -19,11 +19,11 @@ module HospitalPortal
   #   class MyThread < CleanThread
   #     def main
   #       loop do
-  #         t.check_finishing
+  #         check_finishing
   #         # ... do some steps
-  #         t.check_finishing
+  #         check_finishing
   #         # ... do some more steps
-  #         t.check_finishing
+  #         check_finishing
   #         # ... do yet more steps
   #       end
   #     end
@@ -68,11 +68,7 @@ module HospitalPortal
       @cleanthread_mutex = Mutex.new
       @cleanthread_stopping = false  # locked by cleanthread_mutex
       @cleanthread_thread = nil  # locked by cleanthread_mutex.  Once set, it is not changed.
-      if block.nil?
-        @cleanthread_proc = Proc.new { |*args| main(*args) }
-      else
-        @cleanthread_proc = block
-      end
+      @cleanthread_proc = block
       @cleanthread_args = args
     end
 
@@ -82,7 +78,11 @@ module HospitalPortal
         if @thread.nil?
           @thread = Thread.new do
             begin
-              @cleanthread_proc.call(self, *@cleanthread_args)
+              if @cleanthread_proc.nil?
+                main(*@cleanthread_args)
+              else
+                @cleanthread_proc.call(self, *@cleanthread_args)
+              end
             rescue ThreadFinish
               # Do nothing - exit cleanly
             end
