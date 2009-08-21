@@ -4,11 +4,12 @@ spec = Gem::Specification.new do |s|
   s.name = "hospitalportal-cleanthread"
   s.version = "0.0.3"
   s.summary = "Support for threads that exit cleanly"
-  s.description = "HospitalPortal::CleanThrea provices support for threads that exit cleanly."
+  s.description = "HospitalPortal::CleanThread provides support for threads that exit cleanly."
   s.require_path = "lib"
   s.files = FileList["lib/**/*"].to_a
   s.author = "Infonium Inc."
   s.has_rdoc = true
+  s.add_dependency 'hospitalportal-core', '>= 0.0.0'
 end
 
 task :gem_install_to_repo => :gem do |t|
