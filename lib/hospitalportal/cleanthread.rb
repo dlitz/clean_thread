@@ -36,13 +36,13 @@ module HospitalPortal
   #
   # == Passing a block to new
   #
-  #   t = CleanThread.new do |t|
+  #   t = CleanThread.new do
   #     loop do
-  #       t.check_finishing
+  #       CleanThread.check_finishing
   #       # ... do some steps
-  #       t.check_finishing
+  #       CleanThread.check_finishing
   #       # ... do some more steps
-  #       t.check_finishing
+  #       CleanThread.check_finishing
   #       # ... do yet more steps
   #     end
   #   end
@@ -55,6 +55,22 @@ module HospitalPortal
 
     class ThreadFinish < Exception
       # NB: Most exceptions should inherit from StandardError, but this is deliberate.
+    end
+
+    # If the current thread was invoked by CleanThread, invoke
+    # CleanThread#check_finishing.
+    def self.check_finishing
+      ct = Thread.current[:hospitalportal_cleanthread_instance]
+      return nil if ct.nil?
+      ct.check_finishing
+    end
+
+    # If the current thread was invoked by CleanThread, return the result of
+    # CleanThread#finishing?.  Otherwise, return nil.
+    def self.finishing?
+      ct = Thread.current[:hospitalportal_cleanthread_instance]
+      return nil if ct.nil?
+      return ct.finishing?
     end
 
     # Initialize a new CleanThread object.
@@ -78,6 +94,7 @@ module HospitalPortal
         if @thread.nil?
           @thread = Thread.new do
             begin
+              Thread.current[:hospitalportal_cleanthread_instance] = self
               if @cleanthread_proc.nil?
                 main(*@cleanthread_args)
               else
