@@ -2,7 +2,7 @@ require 'rubygems'
 
 spec = Gem::Specification.new do |s|
   s.name = "hospitalportal-cleanthread"
-  s.version = "0.0.3"
+  s.version = "0.0.4"
   s.summary = "Support for threads that exit cleanly"
   s.description = "HospitalPortal::CleanThread provides support for threads that exit cleanly."
   s.require_path = "lib"
