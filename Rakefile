@@ -4,7 +4,12 @@ spec = Gem::Specification.new do |s|
   s.name = "hospitalportal-cleanthread"
   s.version = "0.0.4"
   s.summary = "Support for threads that exit cleanly"
-  s.description = "HospitalPortal::CleanThread provides support for threads that exit cleanly."
+  s.description = <<EOF
+HospitalPortal::CleanThread provides support for developing threads that exit cleanly.
+
+Reliable J2EE deployment requires that all threads started by an application
+are able to exit cleanly upon request.
+EOF
   s.require_path = "lib"
   s.files = FileList["lib/**/*"].to_a
   s.author = "Infonium Inc."
