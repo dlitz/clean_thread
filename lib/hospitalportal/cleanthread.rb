@@ -1,5 +1,4 @@
 require 'thread'
-require 'hospitalportal/database'
 
 module HospitalPortal
 
@@ -105,7 +104,7 @@ module HospitalPortal
               # Do nothing - exit cleanly
             ensure
               # Release this thread's database connections
-              HospitalPortal::Database.release_current_thread_connections
+              HospitalPortal::Database.release_current_thread_connections if defined? HospitalPortal::Database
             end
           end
         else

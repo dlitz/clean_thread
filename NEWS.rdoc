@@ -1,0 +1,5 @@
+= Release Notes
+
+== 0.1 - 2010-02-10 - John Duff
+
+- Removed dependency on HospitalPortal::Database and Java
