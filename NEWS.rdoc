@@ -1,5 +1,8 @@
 = Release Notes
 
+== 0.3 (unreleased) - DATE_HERE - RELEASERS_NAME_HERE
+
+
 == 0.2 - 2010-10-21 - Dwayne Litzenberger
 
 - Removed references to HospitalPortal::Database, use ActiveRecord::Base instead.
