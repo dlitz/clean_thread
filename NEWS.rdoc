@@ -1,6 +1,6 @@
 = Release Notes
 
-== 0.2 (unreleased) - DATE_HERE - RELEASERS_NAME_HERE
+== 0.2 - 2010-10-21 - Dwayne Litzenberger
 
 - Removed references to HospitalPortal::Database, use ActiveRecord::Base instead.
 - Add display_exception() method, which outputs exceptions to $stderr by default.
