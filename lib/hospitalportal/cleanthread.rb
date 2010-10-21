@@ -102,6 +102,12 @@ module HospitalPortal
               end
             rescue ThreadFinish
               # Do nothing - exit cleanly
+            rescue Exception, ScriptError, SystemStackError, SyntaxError, StandardError => exc
+              # NOTE: rescue Exception should be enough here, but JRuby seems to miss some exceptions if you do that.
+              #
+              # Output backtrace, since otherwise we won't see anything until the main thread joins this thread.
+              display_exception(exc)
+              raise
             ensure
               # This is needed.  Otherwise, the database connections aren't returned to the pool and things break.
               ActiveRecord::Base.connection_handler.clear_active_connections! if defined? ActiveRecord::Base
@@ -158,5 +164,12 @@ module HospitalPortal
       # default is to do nothing
     end
 
+    # Override this method if you want the stacktrace output to happen differently
+    def display_exception(exception)
+      lines = []
+      lines << "#{exception.class.name}: #{exception.message}\n"
+      lines += exception.backtrace.map{|line| "\tfrom #{line}"}
+      $stderr.puts lines.join("\n")
+    end
   end
 end
