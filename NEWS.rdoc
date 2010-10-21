@@ -2,6 +2,7 @@
 
 == 0.2 (unreleased) - DATE_HERE - RELEASERS_NAME_HERE
 
+- Removed references to HospitalPortal::Database, use ActiveRecord::Base instead.
 
 == 0.1 - 2010-02-10 - John Duff
 

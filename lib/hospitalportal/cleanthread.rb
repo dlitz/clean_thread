@@ -103,8 +103,8 @@ module HospitalPortal
             rescue ThreadFinish
               # Do nothing - exit cleanly
             ensure
-              # Release this thread's database connections
-              HospitalPortal::Database.release_current_thread_connections if defined? HospitalPortal::Database
+              # This is needed.  Otherwise, the database connections aren't returned to the pool and things break.
+              ActiveRecord::Base.connection_handler.clear_active_connections! if defined? ActiveRecord::Base
             end
           end
         else
