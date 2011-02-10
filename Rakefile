@@ -1,6 +1,5 @@
 require 'hospitalportal/build/gemtasks'
 HospitalPortal::Build::GemTasks.new do |pkg|
-  pkg.test_framework = nil
   pkg.gem.name = 'hospitalportal-cleanthread'
   pkg.gem.authors << 'Dwayne Litzenberger'  # current maintainer
   pkg.gem.summary = 'Support for threads that exit cleanly'
