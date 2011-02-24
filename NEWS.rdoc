@@ -1,5 +1,9 @@
 = Release Notes
 
+== 0.4 (unreleased) - DATE_HERE - RELEASERS_NAME_HERE
+
+
+
 == 0.3 - 2011-02-24 - Dwayne Litzenberger
 
 - Fix bug where CleanThread#alive? would raise an exception if the thread was
