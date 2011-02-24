@@ -29,4 +29,11 @@ class CleanThreadTest < Test::Unit::TestCase
       t.finish
     end
   end
+
+  def test_alive_should_not_raise_error_if_thread_not_yet_started
+    t = HospitalPortal::CleanThread.new { }
+    assert_nothing_raised do
+      assert !t.alive?
+    end
+  end
 end

@@ -136,7 +136,7 @@ module HospitalPortal
 
     # Return true if the thread is alive.
     def alive?
-      return @thread.alive?
+      @thread && @thread.alive?
     end
 
     # Wait for the thread to stop.

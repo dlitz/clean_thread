@@ -2,6 +2,8 @@
 
 == 0.3 (unreleased) - DATE_HERE - RELEASERS_NAME_HERE
 
+- Fix bug where CleanThread#alive? would raise an exception if the thread was
+  not yet started.
 
 == 0.2 - 2010-10-21 - Dwayne Litzenberger
 
