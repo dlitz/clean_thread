@@ -91,8 +91,8 @@ module HospitalPortal
     # Start the thread.
     def start
       @cleanthread_mutex.synchronize {
-        if @thread.nil?
-          @thread = Thread.new do
+        if @cleanthread_thread.nil?
+          @cleanthread_thread = Thread.new do
             begin
               Thread.current[:hospitalportal_cleanthread_instance] = self
               if @cleanthread_proc.nil?
@@ -126,22 +126,22 @@ module HospitalPortal
     # waiting for it to stop.
     def finish(options={})
       @cleanthread_mutex.synchronize {
-        raise RuntimeError.new("not started") if @thread.nil?
+        raise RuntimeError.new("not started") if @cleanthread_thread.nil?
         @cleanthread_stopping = true
       }
-      raise ThreadFinish if @thread == ::Thread.current
-      @thread.join unless options[:nowait]
+      raise ThreadFinish if @cleanthread_thread == ::Thread.current
+      @cleanthread_thread.join unless options[:nowait]
       return nil
     end
 
     # Return true if the thread is alive.
     def alive?
-      @thread && @thread.alive?
+      @cleanthread_thread && @cleanthread_thread.alive?
     end
 
     # Wait for the thread to stop.
     def join
-      return @thread.join
+      return @cleanthread_thread.join
     end
 
     # Return true if the finish method has been called.
