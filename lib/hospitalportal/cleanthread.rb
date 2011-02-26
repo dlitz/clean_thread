@@ -124,13 +124,18 @@ module HospitalPortal
     #
     # If the :nowait option is true, then just ask the thread to finish without
     # waiting for it to stop.
+    #
+    # When a thread invokes its own finish method, ThreadFinish is raised,
+    # unless :nowait is true.
     def finish(options={})
       @cleanthread_mutex.synchronize {
         raise RuntimeError.new("not started") if @cleanthread_thread.nil?
         @cleanthread_stopping = true
       }
-      raise ThreadFinish if @cleanthread_thread == ::Thread.current
-      @cleanthread_thread.join unless options[:nowait]
+      unless options[:nowait]
+        raise ThreadFinish if @cleanthread_thread == ::Thread.current
+        @cleanthread_thread.join
+      end
       return nil
     end
 

@@ -36,4 +36,15 @@ class CleanThreadTest < Test::Unit::TestCase
       assert !t.alive?
     end
   end
+
+  def test_finish_nowait_should_not_raise_exception
+    success = false
+    t = HospitalPortal::CleanThread.new do |t|
+      t.finish(:nowait=>true)
+      success = true
+    end
+    t.start
+    t.join
+    assert success, "finish(:nowait=>true) should not raise an exception when invoked from within a CleanThread"
+  end
 end
