@@ -94,7 +94,13 @@ module HospitalPortal
         if @cleanthread_thread.nil?
           @cleanthread_thread = Thread.new do
             begin
+              # Set the Java thread name (for debugging)
+              Java::java.lang.Thread.current_thread.name = "#{self.class.name}-#{self.object_id}" if defined?(Java)
+
+              # Set the CleanThread instance (for use with the CleanThread.check_finishing
+              # and CleanThread.finishing? class methods
               Thread.current[:hospitalportal_cleanthread_instance] = self
+
               if @cleanthread_proc.nil?
                 main(*@cleanthread_args)
               else

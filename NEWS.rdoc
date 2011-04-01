@@ -2,7 +2,8 @@
 
 == 0.5 (unreleased) - DATE_HERE - RELEASERS_NAME_HERE
 
-
+- Set the Java thread name (when running under JRuby). This makes debugging
+  with jconsole/JMX easier.
 
 == 0.4 - 2011-02-26 - Dwayne Litzenberger
 
