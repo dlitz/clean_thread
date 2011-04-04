@@ -1,6 +1,6 @@
 = Release Notes
 
-== 0.5 (unreleased) - DATE_HERE - RELEASERS_NAME_HERE
+== 0.5 - 2011-04-04 - Dwayne Litzenberger
 
 - Set the Java thread name (when running under JRuby). This makes debugging
   with jconsole/JMX easier.
