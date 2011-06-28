@@ -1,0 +1,72 @@
+= clean_thread - Support for background threads.
+
+CleanThread helps you create background threads that will exit cleanly upon
+request.
+
+You may either subclass this class and override its main() method, or pass
+a block to CleanThread.new.
+
+Code invoked by CleanThread should check periodically whether the
+thread needs to exit, either by invoking the check_finishing method (which
+raises ThreadFinish if the finish method has been called), or by manually
+checking the result of the finishing? method and exiting if it returns true.
+
+In addition to providing the #finish and #check_finishing methods,
+CleanThread takes care of the following:
+
+- Dumping a backtrace to stderr if there is an exception
+- Setting the Java thread name (if running under JRuby)
+- Releasing ActiveRecord connections (if ActiveRecord is loaded)
+
+= Installation
+
+  gem install clean_thread
+
+= Example Usage
+
+== Overriding CleanThread#main
+
+  require 'clean_thread'
+
+  class MyThread < CleanThread
+    def main
+      loop do
+        check_finishing
+        # ... do some steps
+        check_finishing
+        # ... do some more steps
+        check_finishing
+        # ... do yet more steps
+      end
+    end
+  end
+
+  t = MyThread.new
+  t.start
+  # ...
+  t.finish
+
+== Passing a block to new
+
+  require 'clean_thread'
+
+  t = CleanThread.new do
+    loop do
+      CleanThread.check_finishing
+      # ... do some steps
+      CleanThread.check_finishing
+      # ... do some more steps
+      CleanThread.check_finishing
+      # ... do yet more steps
+    end
+  end
+
+  t.start   # Start the thread
+  # ...
+  t.finish  # Stop the thread
+
+= License
+
+Copyright © 2009-2011 Infonium Inc.
+
+License: See the MIT-LICENSE file.

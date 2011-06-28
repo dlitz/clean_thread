@@ -1,8 +1,8 @@
 = Release Notes
 
-== 0.6 (unreleased) - DATE_HERE - RELEASERS_NAME_HERE
+== 1.0.0 - 2011-06-28 - Dwayne Litzenberger
 
-
+- First public release
 
 == 0.5 - 2011-04-04 - Dwayne Litzenberger
 

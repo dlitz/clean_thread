@@ -1,10 +1,10 @@
 require File.expand_path "../../test_helper", __FILE__
 
-require 'hospitalportal/cleanthread'
+require 'clean_thread'
 
 class CleanThreadTest < Test::Unit::TestCase
   def test_allow_multple_finish
-    t = HospitalPortal::CleanThread.new do |t|
+    t = CleanThread.new do |t|
       loop do
         t.check_finishing
       end
@@ -17,7 +17,7 @@ class CleanThreadTest < Test::Unit::TestCase
   end
 
   def test_allow_multple_finish_with_first_nowait
-    t = HospitalPortal::CleanThread.new do |t|
+    t = CleanThread.new do |t|
       loop do
         t.check_finishing
       end
@@ -31,7 +31,7 @@ class CleanThreadTest < Test::Unit::TestCase
   end
 
   def test_alive_should_not_raise_error_if_thread_not_yet_started
-    t = HospitalPortal::CleanThread.new { }
+    t = CleanThread.new { }
     assert_nothing_raised do
       assert !t.alive?
     end
@@ -39,7 +39,7 @@ class CleanThreadTest < Test::Unit::TestCase
 
   def test_finish_nowait_should_not_raise_exception
     success = false
-    t = HospitalPortal::CleanThread.new do |t|
+    t = CleanThread.new do |t|
       t.finish(:nowait=>true)
       success = true
     end
