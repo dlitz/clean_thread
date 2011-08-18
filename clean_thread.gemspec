@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.homepage    = "https://github.com/dlitz/clean_thread"
   s.summary     = %q{Support for threads that exit cleanly}
   s.description = <<EOF
-HospitalPortal::CleanThread provides support for developing threads that exit cleanly.
+CleanThread provides support for developing threads that exit cleanly.
 
 Reliable J2EE deployment requires that all threads started by an application
 are able to exit cleanly upon request.
